@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gantuangcoc98.dtos.PlayerRequest;
 import com.gantuangcoc98.ebingo.models.GameHost;
 import com.gantuangcoc98.ebingo.models.Player;
 import com.gantuangcoc98.ebingo.repository.BingoRepo;
@@ -74,7 +75,10 @@ public class BingoService {
         return null;
     }
 
-    public Player addPlayerTo(String gameCode, Player player) {
+    public Player addPlayerTo(PlayerRequest request) {
+        String gameCode = request.getGameCode();
+        Player player = request.getPlayer();
+
         Optional<GameHost> gameHost = bingoRepo.findByGameCode(gameCode);
         if (gameHost.isPresent()) {
             GameHost _gameHost = gameHost.get();

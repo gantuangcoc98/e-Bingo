@@ -50,7 +50,7 @@ export default function Game() {
         
             const game = await axios.post("http://localhost:8080/game/create", gameHost)
             if (game.data) {
-                navigate(`/game/${gameHost.gameCode}`);
+                navigate(`/game/${gameHost.gameCode}/display`);
                 window.location.reload();
                 console.log("New game:", game.data);
             } else {
@@ -62,22 +62,32 @@ export default function Game() {
         }
     }
 
+    const handleHomeButton = () => {
+        navigate('/');
+    }
+
     return (
         <>
             <div className="flex w-full h-full">
                 {gameReady ? 
-                    <div className="flex flex-col gap-[10px]">
-                        <button className="text-[16px] w-fit h-fit font-semibold p-[5px] border border-black hover:bg-slate-100"
-                            onClick={()=>createNewGame()}>
-                            Create New Game
-                        </button>
+                    <div className="flex flex-col gap-[10px] h-full w-[30%]">
+                        <div className="flex gap-[10px] items-center">
+                            <button className="text-[16px] w-fit h-fit font-semibold p-[5px] border border-black hover:bg-slate-100"
+                                onClick={()=>createNewGame()}>
+                                Create New Game
+                            </button>
+                            <button className='border border-black p-[5px] w-fit h-fit text-[16px] font-semibold hover:bg-slate-100'
+                                onClick={()=>handleHomeButton()}>
+                                Home
+                            </button>
+                        </div>
                         <span className="text-[30px] font-semibold">Game Code: {gameCode}</span>
-                        <span className="h-fit w-[50%]">{JSON.stringify(game)}</span>
+                        <span className="h-fit w-full">{JSON.stringify(game)}</span>
                     </div>
                     :
                     <span className="text-[30px] font-semibold">Game not found!</span>
                 }
-            </div> 
+            </div>
         </>
     )
 }

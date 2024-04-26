@@ -35,9 +35,6 @@ public class Player {
     @Column(name = "status")
     private int status;
 
-    @Column(name ="fk_game_code")
-    private String gameCode;
-
     public Player(String playerToken, Map<String, List<String>> playerCard, int status) {
         this.playerToken = playerToken;
         setPlayerCard(playerCard);

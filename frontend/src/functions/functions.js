@@ -9,8 +9,7 @@ function generateBingoCard() {
         'O': generateRandomNumbers(41, 50)
     };
 
-    console.log(playerCard);
-    return playerCard;
+    return convertToMap(playerCard);
 }
 
 function generateRandomNumbers(min, max) {
@@ -24,22 +23,14 @@ function generateRandomNumbers(min, max) {
     return numbers.join(',');
 }
 
-const generatePlayerToken = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/player/generateToken");
-      if (response.data) {
-        const _playerToken = response.data;
-        console.log(_playerToken);
-        return _playerToken;
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-
-    return null;
+function convertToMap(bingoCard) {
+    const map = {};
+    Object.keys(bingoCard).forEach(key => {
+      map[key] = bingoCard[key].split(',');
+    });
+    return map;
 }
 
 export {
-    generateBingoCard,
-    generatePlayerToken
+    generateBingoCard
 }

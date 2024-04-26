@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gantuangcoc98.dtos.PlayerRequest;
 import com.gantuangcoc98.ebingo.models.GameHost;
 import com.gantuangcoc98.ebingo.models.Player;
 import com.gantuangcoc98.ebingo.services.BingoService;
@@ -44,8 +45,8 @@ public class BingoController {
     }
 
     @PostMapping(path = "addPlayer")
-    public Player addPlayerTo(@RequestBody String gameCode, @RequestBody Player player) {
-        return bingoService.addPlayerTo(gameCode, player);
+    public Player addPlayerTo(@RequestBody PlayerRequest request) {
+        return bingoService.addPlayerTo(request);
     }
 
     @GetMapping(path = "getGame")

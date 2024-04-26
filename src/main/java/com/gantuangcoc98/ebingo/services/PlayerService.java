@@ -1,10 +1,12 @@
 package com.gantuangcoc98.ebingo.services;
 
 import java.security.SecureRandom;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gantuangcoc98.ebingo.models.Player;
 import com.gantuangcoc98.ebingo.repository.BingoRepo;
 import com.gantuangcoc98.ebingo.repository.PlayerRepo;
 
@@ -42,5 +44,15 @@ public class PlayerService {
             sb.append(randomChar);
         }
         return sb.toString();
+    }
+
+    public Player getPlayer(String playerToken) {
+        Optional<Player> player = playerRepo.findByPlayerToken(playerToken);
+
+        if (player.isPresent()) {
+            return player.get();
+        }
+
+        return null;
     }
 }
